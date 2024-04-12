@@ -26,7 +26,7 @@
                         
                         <tr>
                             <th>{{ $i++ }}</th>
-                            <th><img src=" /./storage/<?php echo $user->image ?> "></th>
+                            <th><img src=" /./storage/{{ $user->image }} "></th>
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
