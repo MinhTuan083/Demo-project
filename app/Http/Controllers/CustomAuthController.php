@@ -23,7 +23,7 @@ class CustomAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
+            return redirect()->intended('list')
                 ->withSuccess('Signed in');
         }
 
@@ -73,4 +73,17 @@ class CustomAuthController extends Controller
 
         return Redirect('login');
     }
+    /**
+     * List of users
+     */
+    public function listUser()
+    {
+        if(Auth::check()){
+            $users = User::paginate(1);
+            return view('crud_user.list', ['users' => $users]);
+        }
+
+        return redirect("login")->withSuccess('You are not allowed to access');
+    }
+
 }
