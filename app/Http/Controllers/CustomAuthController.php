@@ -21,12 +21,12 @@ class CustomAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
             return redirect()->intended('list')->withSuccess('Signed in');
-        }   
+        }
         return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
     }
 
@@ -36,50 +36,51 @@ class CustomAuthController extends Controller
     }
 
 
-    
 
-    public function customRegistration(Request $request) 
-{ 
-    $request->validate([ 
-        'name' => 'required|string|max:255', 
-        'email' => 'required|string|email|max:255|unique:users', 
-        'password' => 'required|string|min:6|confirmed',
-        'phone' => 'required|string|max:15', 
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
-    ]); 
-    
-    $data = $request->all(); 
 
-    // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
-    if ($request->hasFile('image')) {
-        $data['image'] = $request->input('image',$request->file('image')->store(''));
-        $request->file('image')->store('public');
+    public function customRegistration(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'phone' => 'required|string|max:15',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->all();
+
+        // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->input('image', $request->file('image')->store(''));
+            $request->file('image')->store('public');
+        }
+        //Nhớ chạy lệnh này trong cmder
+        // php artisan storage:link
+        $check = $this->create($data);
+
+        return redirect("dashboard")->withSuccess('You have signed-in');
     }
-    //Nhớ chạy lệnh này trong cmder
-    // php artisan storage:link
-    $check = $this->create($data); 
 
-    return redirect("dashboard")->withSuccess('You have signed-in'); 
-}
+    public function create(array $data)
+    {
 
-public function create(array $data) 
-{ 
-    
-    return User::create([ 
-        'name' => $data['name'], 
-        'email' => $data['email'], 
-        'password' => Hash::make($data['password']), 
-        'phone' => $data['phone'], // Lưu trữ số điện thoại
-        // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
-        'image' => $data['image'] ?? null, 
-        
-    ]); 
-    
-} 
-   
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'phone' => $data['phone'], // Lưu trữ số điện thoại
+            // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
+            'image' => $data['image'] ?? null,
 
-   
-    public function readUser(Request $request) {
+        ]);
+
+    }
+
+
+
+    public function readUser(Request $request)
+    {
 
         $user_id = $request->get('id');
         $user = User::find($user_id);
@@ -136,41 +137,36 @@ public function create(array $data)
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
-    
+
         // Tìm kiếm người dùng
         $user = User::findOrFail($id);
-        $user2 = User::findOrFail($id);
 
         // Gán các giá trị mới cho người dùng
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
-    
+
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
-    
-        // So sánh mật khẩu mới với mật khẩu hiện tại
-        if ($newPassword !== null && $newPassword !== '' && Hash::check($newPassword, $user->password) == false) {
-            // Mật khẩu mới khác mật khẩu hiện tại, mã hóa và cập nhật mật khẩu mới
+
+        // Kiểm tra xem mật khẩu mới có được cung cấp không
+        if (!empty($newPassword)) {
+            // Mật khẩu mới được cung cấp, mã hóa và cập nhật mật khẩu mới
             $user->password = Hash::make($newPassword);
         }
-        else // nếu không có thì gán lại mk cũ
-        
-        {
-            $user->password = $user2->password;
-        }
-    
+
         // Kiểm tra và cập nhật ảnh đại diện nếu có
         if ($request->hasFile('image')) {
             $user->image = $request->file('image')->store('profile_images');
         }
-    
+
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         $user->save();
-    
-        return redirect("list")->withSuccess('User updated successfully');
+
+        return redirect("list")->with('message','User updated successfully');
     }
-    
+
+
     public function editUser($id)
     {
         $user = User::findOrFail($id);

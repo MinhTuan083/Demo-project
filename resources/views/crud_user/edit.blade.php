@@ -1,3 +1,5 @@
+
+
 @extends('dashboard')
 
 @section('content')
@@ -23,19 +25,20 @@
             <span class="text-danger">{{ $errors->first('email') }}</span>
         @endif
     </div>
-    <!-- Trường mật khẩu -->
-    <div class="form-group mb-3">
-        <input type="password" placeholder="Password" id="password" class="form-control" name="password" value="{{ $user->password }}" required>
-        @if ($errors->has('password'))
-            <span class="text-danger">{{ $errors->first('password') }}</span>
-        @endif
-    </div>
-    <div class="form-group mb-3">
-        <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control"  name="password_confirmation" value="{{ $user->password }}" required>
-        @if ($errors->has('password_confirmation'))
-            <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-        @endif
-    </div>
+   <!-- Trường mật khẩu -->
+<div class="form-group mb-3">
+    <input type="password" placeholder="Password" id="password" class="form-control" name="password" >
+    @if ($errors->has('password'))
+        <span class="text-danger">{{ $errors->first('password') }}</span>
+    @endif
+</div>
+<div class="form-group mb-3">
+    <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control"  name="password_confirmation" >
+    @if ($errors->has('password_confirmation'))
+        <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+    @endif
+</div>
+
     <!-- Trường điện thoại -->
     <div class="form-group mb-3">
         <input type="text" placeholder="Phone" id="phone" class="form-control" name="phone" value="{{ $user->phone }}" required>
