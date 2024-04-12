@@ -135,7 +135,8 @@ class CustomAuthController extends Controller
     
         // Tìm kiếm người dùng
         $user = User::findOrFail($id);
-    
+        $user2 = User::findOrFail($id);
+
         // Gán các giá trị mới cho người dùng
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -148,6 +149,11 @@ class CustomAuthController extends Controller
         if ($newPassword !== null && $newPassword !== '' && Hash::check($newPassword, $user->password) == false) {
             // Mật khẩu mới khác mật khẩu hiện tại, mã hóa và cập nhật mật khẩu mới
             $user->password = Hash::make($newPassword);
+        }
+        else // nếu không có thì gán lại mk cũ
+        
+        {
+            $user->password = $user2->password;
         }
     
         // Kiểm tra và cập nhật ảnh đại diện nếu có
