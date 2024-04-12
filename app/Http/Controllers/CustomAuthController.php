@@ -17,17 +17,17 @@ class CustomAuthController extends Controller
     public function customLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         $credentials = $request->only('email', 'password');
+    
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                ->withSuccess('Signed in');
+            return redirect()->intended('list')->withSuccess('Signed in');
         }
-
-        return redirect("login")->withSuccess('Login details are not valid');
+    
+        return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
     }
 
     public function registration()
