@@ -71,14 +71,7 @@ public function create(array $data)
         'image' => $data['image'] ?? null, 
     ]); 
 } 
-    public function listUser()
-    {
-        if(Auth::check()){
-            $users = User::paginate(3); // Số lượng người dùng trên mỗi trang (trong trường hợp này là 10)
-            return view('crud_user.list', ['users' => $users]);
-        }
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
+   
 
    
     public function readUser(Request $request) {
