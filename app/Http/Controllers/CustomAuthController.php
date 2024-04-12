@@ -11,7 +11,7 @@ class CustomAuthController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('crud_user.login');
     }
 
     public function customLogin(Request $request)
