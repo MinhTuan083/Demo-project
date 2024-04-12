@@ -1,5 +1,6 @@
 @extends('dashboard')
 @section('content')
+
     <main class="login-form">
         <div class="cotainer">
             <div class="row justify-content-center">
@@ -7,11 +8,13 @@
                     <div class="card">
                         <h3 class="card-header text-center">Login</h3>
                         <div class="card-body">
+                            @if(session('error'))
+                                <div class="alert alert-danger text-center">{{ session('error') }}</div>
+                            @endif
                             <form method="POST" action="{{ route('login.custom') }}">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <input type="text" placeholder="Email" id="email" class="form-control" name="email" required
-                                           autofocus>
+                                    <input type="text" placeholder="Email" id="email" class="form-control" name="email" required autofocus>
                                     @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     @endif
