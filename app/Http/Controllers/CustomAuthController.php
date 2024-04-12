@@ -47,14 +47,16 @@ class CustomAuthController extends Controller
         'phone' => 'required|string|max:15', 
         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
     ]); 
-
+    
     $data = $request->all(); 
 
     // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
     if ($request->hasFile('image')) {
-        $data['image'] = $request->file('image')->store('profile_images');
+        $data['image'] = $request->input('image',$request->file('image')->store(''));
+        $request->file('image')->store('public');
     }
-    
+    //Nhớ chạy lệnh này trong cmder
+    // php artisan storage:link
     $check = $this->create($data); 
 
     return redirect("dashboard")->withSuccess('You have signed-in'); 
@@ -62,6 +64,7 @@ class CustomAuthController extends Controller
 
 public function create(array $data) 
 { 
+    
     return User::create([ 
         'name' => $data['name'], 
         'email' => $data['email'], 
@@ -69,7 +72,9 @@ public function create(array $data)
         'phone' => $data['phone'], // Lưu trữ số điện thoại
         // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
         'image' => $data['image'] ?? null, 
+        
     ]); 
+    
 } 
    
 
