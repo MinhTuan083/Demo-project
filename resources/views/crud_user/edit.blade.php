@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card">
-                    <h3 class="card-header text-center">Register User</h3>
+                    <h3 class="card-header text-center">Update User</h3>
                     <div class="card-body">
                     <form method="POST" action="{{ route('update.user', ['id' => $user->id]) }}" enctype="multipart/form-data">
     @csrf
