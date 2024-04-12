@@ -28,4 +28,12 @@ Route::get('registration', [CustomAuthController::class, 'registration'])->name(
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 Route::post('registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
+
 Route::get('list', [CustomAuthController::class, 'listUser'])->name('user.list');
+
+Route::get('create', [CustomAuthController::class, 'createUser'])->name('createUser');
+Route::post('create', [CustomAuthController::class, 'postUser'])->name('crud_user.postUser');
+Route::get('delete', [CustomAuthController::class, 'deleteUser'])->name('crud_user.deleteUser');
+Route::get('list', [CustomAuthController::class, 'listUser'])->name('list');
+
+
