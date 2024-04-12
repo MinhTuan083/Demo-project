@@ -1,4 +1,5 @@
 
+
 @extends('dashboard')
 
 @section('content')
@@ -26,7 +27,6 @@
                             <th>
                                <button type="button"> <a href="#">View</a> </button>
                                 <button type="button"><a href="#">Edit</a> </button>
-                                <button type="button"><a href="#">Delete</a></button>
                             </th>
                         </tr>
                     @endforeach

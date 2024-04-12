@@ -8,7 +8,7 @@
                 <div class="card">
                     <h3 class="card-header text-center">Register User</h3>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register.custom') }}">
+                    <form method="POST" action="{{ route('register.custom') }}" enctype="multipart/form-data"> <!-- thêm thuộc tính enctype để xử lý tệp -->
                             @csrf
                             <div class="form-group mb-3">
                                 <input type="text" placeholder="Name" id="name" class="form-control" name="name" required autofocus>
@@ -34,9 +34,25 @@
                                     <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                                 @endif
                             </div>
+                            <!-- Trường điện thoại -->
+                            <div class="form-group mb-3">
+                                <input type="text" placeholder="Phone" id="phone" class="form-control" name="phone" required>
+                                @if ($errors->has('phone'))
+                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                @endif
+                            </div>
+
+                            <!-- Trường ảnh -->
+                            <div class="form-group mb-3">
+                                <label for="image">Choose profile image</label>
+                                <input type="file" id="image" class="form-control" name="image" accept="image/*">
+                                @if ($errors->has('image'))
+                                    <span class="text-danger">{{ $errors->first('image') }}</span>
+                                @endif
+                            </div>
+                            
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-dark btn-block">Sign up</button>
-                            </div>
                         </form>
                     </div>
                 </div>
