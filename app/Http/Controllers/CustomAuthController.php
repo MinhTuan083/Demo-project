@@ -15,23 +15,19 @@ class CustomAuthController extends Controller
         return view('crud_user.login');
     }
 
-
     public function customLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')
-                ->withSuccess('Signed in');
-        }
-
-        return redirect("login")->withSuccess('Login details are not valid');
-
+            return redirect()->intended('list')->withSuccess('Signed in');
+        }   
+        return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
     }
 
     public function registration()
@@ -39,44 +35,52 @@ class CustomAuthController extends Controller
         return view('crud_user.registration');
     }
 
-    public function customRegistration(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'phone' => 'required|string|max:15',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
 
-        $data = $request->all();
+    
 
-        // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('profile_images');
-        }
+    public function customRegistration(Request $request) 
+{ 
+    $request->validate([ 
+        'name' => 'required|string|max:255', 
+        'email' => 'required|string|email|max:255|unique:users', 
+        'password' => 'required|string|min:6|confirmed',
+        'phone' => 'required|string|max:15', 
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+    ]); 
+    
+    $data = $request->all(); 
 
-        $check = $this->create($data);
-
-        return redirect("dashboard")->withSuccess('You have signed-in');
+    // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
+    if ($request->hasFile('image')) {
+        $data['image'] = $request->input('image',$request->file('image')->store(''));
+        $request->file('image')->store('public');
     }
+    //Nhớ chạy lệnh này trong cmder
+    // php artisan storage:link
+    $check = $this->create($data); 
 
-    public function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'], // Lưu trữ số điện thoại
-            // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
-            'image' => $data['image'] ?? null,
-        ]);
-    }
+    return redirect("dashboard")->withSuccess('You have signed-in'); 
+}
 
+public function create(array $data) 
+{ 
+    
+    return User::create([ 
+        'name' => $data['name'], 
+        'email' => $data['email'], 
+        'password' => Hash::make($data['password']), 
+        'phone' => $data['phone'], // Lưu trữ số điện thoại
+        // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
+        'image' => $data['image'] ?? null, 
+        
+    ]); 
+    
+} 
+   
 
+   
+    public function readUser(Request $request) {
 
-    public function readUser(Request $request)
-    {
         $user_id = $request->get('id');
         $user = User::find($user_id);
 
