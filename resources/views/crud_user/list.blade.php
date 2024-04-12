@@ -20,12 +20,14 @@
                         <td>Phone</td>
                         <td>Action</td>
                     </tr>
-                
+                    <?php $i = 1 ;
+                     ?>
                     @foreach($users as $user)
+                        
                         <tr>
-                            <th>{{ $user->id }}</th>
-                            <th>{{ $user->image }}</th>
-                            <th style="width: 100px;">{{ $user->name }}</th>
+                            <th>{{ $i++ }}</th>
+                            <th><img src=" /./storage/<?php echo $user->image ?> "></th>
+                            <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
                             <th>
