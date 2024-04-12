@@ -27,6 +27,8 @@
                             <th>
                                <button type="button"> <a href="#">View</a> </button>
                                 <button type="button"><a href="#">Edit</a> </button>
+                                <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a> </button>
+
                             </th>
                         </tr>
                     @endforeach
