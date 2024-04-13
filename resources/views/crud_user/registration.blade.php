@@ -23,6 +23,12 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
+                                <input type="text" placeholder="mssv" id="mssv" class="form-control" name="mssv" required >
+                                @if ($errors->has('mssv'))
+                                    <span class="text-danger">{{ $errors->first('mssv') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group mb-3">
                                 <input type="password" placeholder="Password" id="password" class="form-control" name="password" required>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">{{ $errors->first('password') }}</span>

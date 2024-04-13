@@ -25,9 +25,10 @@ class CustomAuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')->withSuccess('Signed in');
+          return redirect()->intended('list')->withSuccess('Signed in');
         }
         return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
+        
     }
 
     public function registration()
@@ -43,13 +44,15 @@ class CustomAuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'mssv' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            
         ]);
 
-        $data = $request->all();
-
+            $data = $request->all();
+        
         // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
         if ($request->hasFile('image')) {
             $data['image'] = $request->input('image', $request->file('image')->store(''));
@@ -72,7 +75,7 @@ class CustomAuthController extends Controller
             'phone' => $data['phone'], // Lưu trữ số điện thoại
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
-
+            'mssv' => $data['mssv'] ,
         ]);
 
     }
@@ -119,8 +122,8 @@ class CustomAuthController extends Controller
      */
     public function listUser()
     {
-        if (Auth::check()) {
-            $users = User::paginate(10);
+       if (Auth::check()) {
+            $users = User::paginate(1);
             return view('crud_user.list', ['users' => $users]);
         }
 
@@ -133,6 +136,7 @@ class CustomAuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'mssv' => 'required|string|max:255|unique:users,mssv,'.$id.',id',
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
@@ -144,8 +148,8 @@ class CustomAuthController extends Controller
         // Gán các giá trị mới cho người dùng
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->mssv = $request->input('mssv');
         $user->phone = $request->input('phone');
-
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
 
@@ -157,7 +161,9 @@ class CustomAuthController extends Controller
 
         // Kiểm tra và cập nhật ảnh đại diện nếu có
         if ($request->hasFile('image')) {
-            $user->image = $request->file('image')->store('profile_images');
+            $user->image = $request->input('image', $request->file('image')->store(''));
+           
+            $request->file('image')->store('public');
         }
 
         // Lưu thông tin người dùng vào cơ sở dữ liệu

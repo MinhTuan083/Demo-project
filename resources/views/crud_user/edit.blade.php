@@ -25,6 +25,12 @@
             <span class="text-danger">{{ $errors->first('email') }}</span>
         @endif
     </div>
+    <div class="form-group mb-3">
+        <input type="text" placeholder="MSSV" id="mssv" class="form-control" name="mssv" value="{{ $user->mssv }}" required>
+        @if ($errors->has('mssv'))
+            <span class="text-danger">{{ $errors->first('mssv') }}</span>
+        @endif
+    </div>
    <!-- Trường mật khẩu -->
 <div class="form-group mb-3">
     <input type="password" placeholder="Password" id="password" class="form-control" name="password" >

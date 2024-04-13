@@ -19,7 +19,7 @@
                         <table style=" border-collapse: collapse;">
                     
                     <tr>
-                        <td>ID</td>
+                        <td>MSSV</td>
                         <td>Image</td>
                         <td>Name</td>
                         <td>Email</td>
@@ -31,15 +31,15 @@
                     @foreach($users as $user)
                         
                         <tr>
-                            <th>{{ $i++ }}</th>
-                            <th><img src=" /./storage/{{ $user->image }} "></th>
+                            <th>{{ $user->mssv }}</th>
+                            <th><img src=" /./storage/{{ $user->image }} " width="100" ></th>
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
                             <th>
-                               <button type="button"> <a href="#">View</a> </button>
-                                <button type="button"><a href="{{ route('edit.user', ['id' => $user->id]) }}">Edit</a> </button>
-                                <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a> </button>
+                                <a href="{{ route('user.readUser', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-2">View</a> 
+                                <a href="{{ route('edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm  m-2">Edit</a> <br>
+                                <a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }} " onclick="return confirm('Are you sure you want to delete this usere?');" class="btn btn-danger btn-sm mb-2">Delete</a> 
 
                             </th>
                         </tr>
