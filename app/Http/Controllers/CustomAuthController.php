@@ -46,6 +46,7 @@ class CustomAuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'mssv' => 'required|string|max:255|unique:users',
         ]);
 
         $data = $request->all();
@@ -72,6 +73,8 @@ class CustomAuthController extends Controller
             'phone' => $data['phone'], // Lưu trữ số điện thoại
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
+            'mssv' => $data['mssv'],
+
 
         ]);
 
@@ -136,7 +139,9 @@ class CustomAuthController extends Controller
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
+            'mssv' => 'required|string|max:255|unique:users,mssv,' . $id . ',id',
         ]);
+
 
         // Tìm kiếm người dùng
         $user = User::findOrFail($id);
@@ -145,6 +150,8 @@ class CustomAuthController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
+        $user->mssv = $request->input('mssv');
+
 
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
@@ -157,13 +164,14 @@ class CustomAuthController extends Controller
 
         // Kiểm tra và cập nhật ảnh đại diện nếu có
         if ($request->hasFile('image')) {
-            $user->image = $request->file('image')->store('profile_images');
-        }
+            $user->image = $request->input('image', $request->file('image')->store(''));
 
+            $request->file('image')->store('public');
+        }
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         $user->save();
 
-        return redirect("list")->with('message','User updated successfully');
+        return redirect("list")->with('message', 'User updated successfully');
     }
 
 

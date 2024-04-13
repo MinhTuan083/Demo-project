@@ -24,18 +24,20 @@
                         <td>Name</td>
                         <td>Email</td>
                         <td>Phone</td>
+                        <td>MSSV</td>
                         <td>Action</td>
                     </tr>
-                    <?php $i = 1 ;
+                    <?php $i = 1;
                      ?>
                     @foreach($users as $user)
                         
                         <tr>
                             <th>{{ $i++ }}</th>
-                            <th><img src=" /./storage/<?php echo $user->image ?> "></th>
+                   <th><img src=" /./storage/{{ $user->image }} " class="imageChange"></th>
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
+                            <th>{{ $user->mssv }}</th>
                             <th>
                                <button type="button"> <a href="#">View</a> </button>
                                 <button type="button"><a href="{{ route('edit.user', ['id' => $user->id]) }}">Edit</a> </button>
@@ -68,5 +70,10 @@
         border: 1px solid black;
         text-align: center;
         width: 10%;}
+    .imageChange {
+        height: auto;
+        max-width: 400px;
+    }
     </style>
+    
 @endsection
