@@ -79,13 +79,13 @@ class CustomAuthController extends Controller
 
 
 
-    public function readUser(Request $request)
+    public function readUser(Request $request, $id)
     {
-
-        $user_id = $request->get('id');
-        $user = User::find($user_id);
-
-        return view('crud_user.read', ['users' => $user]);
+        $user = User::find($id);
+        if (!$user) {
+            return view('crud_user.read')->with('user', null);
+        }
+        return view('crud_user.read')->with('user', $user);
     }
 
     public function deleteUser(Request $request)
@@ -119,13 +119,16 @@ class CustomAuthController extends Controller
      */
     public function listUser()
     {
+        $dashboardPage = false; // Khởi tạo biến dashboardPage với giá trị false
+    
         if (Auth::check()) {
-            $users = User::paginate(10);
-            return view('crud_user.list', ['users' => $users]);
+            $users = User::paginate(5);
+            return view('crud_user.list', ['users' => $users, 'dashboardPage' => $dashboardPage]);
         }
-
+    
         return redirect("login")->withSuccess('You are not allowed to access');
     }
+    
 
     //Update user
     public function updateUser(Request $request, $id)
