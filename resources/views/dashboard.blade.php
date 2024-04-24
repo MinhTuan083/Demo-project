@@ -34,13 +34,18 @@
         .nav-item:last-child::after {
             content: none;
         }
-        .footer{
-            display: fixed;
+        .footer {
+            @if(isset($dashboardPage) && $dashboardPage === false)
+                position: relative;
+                margin-top: 100px; /* Đặt khoảng cách với phần hiển thị khác trên trang list */
+            @else
+                position: fixed;
+                bottom: 0;
+            @endif
             border: 1px solid black;
             padding: 5px;
             border-radius: 5px;
-            width: 1340px;
-            margin-left: 100px;
+            width: 100%;
         }
     </style>
 </head>
@@ -49,21 +54,21 @@
     <div class="container">
         <div class="navbar-nav">
             @guest
-            <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('login') }}">Home</a>
                 <a class="nav-item" href="{{ route('login') }}">Login</a>
                 <a class="nav-item" href="{{ route('register-user') }}">Register</a>
-                @else
+            @else
                 <a class="nav-item" href="{{ route('login') }}">Home</a>
                 <a class="nav-item" href="{{ route('signout') }}">Sign out</a>
-                @endguest
-            </div>
+            @endguest
+        </div>
     </div>
 </nav>
 @yield('content')
-<footer class="footer fixed-bottom bg-light py-3">
+<footer class="footer flex-bottom bg-light py-3">
     <div class="container text-center">
         <span>@ 2024 Group I</span>
-        </div>
+    </div>
 </footer>
 </body>
 </html>
