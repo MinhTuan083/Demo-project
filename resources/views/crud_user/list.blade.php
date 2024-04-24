@@ -37,18 +37,20 @@
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
                             <th>
-                               <button type="button"> <a href="#">View</a> </button>
-                                <button type="button"><a href="{{ route('edit.user', ['id' => $user->id]) }}">Edit</a> </button>
-                                <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a> </button>
+                            <a href="{{ route('read.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-1">View</a> 
+                              <a href="{{ route('edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-1">Edit</a>
+                            <a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a> 
 
                             </th>
                         </tr>
                     @endforeach
                 
                         </table>
-                       <div > 
-                       {{ $users->render('vendor.pagination.custom') }}</div>
+                     <div class="pagination justify-content-center">
+                        {{ $users->links()}}
+
                         </div>
+
                     </div>
             <!-- Phan trang -->
            
