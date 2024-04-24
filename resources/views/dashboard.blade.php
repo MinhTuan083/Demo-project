@@ -12,7 +12,7 @@
             padding: 5px;
             border-radius: 5px;
             width: 1500px;
-            
+            margin-left: -10px;
         }
 
         .nav-item {
@@ -39,7 +39,8 @@
             border: 1px solid black;
             padding: 5px;
             border-radius: 5px;
-            width: 1500px;
+            width: 1340px;
+            margin-left: 100px;
         }
     </style>
 </head>
@@ -47,9 +48,14 @@
 <nav class="navbar navbar-expand-lg mb-5">
     <div class="container">
         <div class="navbar-nav">
-        
+            @guest
+            <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('login') }}">Login</a>
                 <a class="nav-item" href="{{ route('register-user') }}">Register</a>
-               
+                @else
+                <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('signout') }}">Sign out</a>
+                @endguest
             </div>
     </div>
 </nav>
