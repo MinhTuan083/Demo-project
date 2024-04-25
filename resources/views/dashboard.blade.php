@@ -8,7 +8,7 @@
         .navbar-nav {
             display: flex;
             justify-content: center;
-            border: 1px solid black;
+            border: 1px solid #888888;
             padding: 5px;
             border-radius: 5px;
             width: 1500px;
@@ -36,16 +36,16 @@
         }
         .footer{
             display: fixed;
-            border: 1px solid black;
+            border: 1px solid #888888;
             padding: 5px;
             border-radius: 5px;
-            width: 1340px;
+            width: 1130px;
             margin-left: 100px;
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg mb-5">
+<nav class="navbar navbar-expand-lg mb-3">
     <div class="container">
         <div class="navbar-nav">
             @guest
@@ -60,7 +60,7 @@
     </div>
 </nav>
 @yield('content')
-<footer class="footer fixed-bottom bg-light py-3">
+<footer class="footer fixed-bottom bg-light py-2">
     <div class="container text-center">
         <span>@ 2024 Group I</span>
         </div>

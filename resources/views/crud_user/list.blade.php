@@ -13,7 +13,7 @@
     <main class="login-form">
         <div class="container">
             <div class="row justify-content-center">
-                    <div class="card" style="border: 1px solid black">
+                    <div class="card" style="border: 1px solid #888888">
                         <h3 class="card-header text-center">List User</h3>
                         <div class="card-body">
                         <table style=" border-collapse: collapse;">
@@ -32,7 +32,7 @@
                         
                         <tr>
                             <th>{{ $user->mssv }}</th>
-                            <th><img src=" /./storage/{{ $user->image }} " width="100" ></th>
+                            <th><img src=" /./storage/{{ $user->image }} " width="100" height="100" class="mr-3" ></th>
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
@@ -65,7 +65,7 @@
     
     }
     td,th{
-        border: 1px solid black;
+        border: .25px solid #888888;
         text-align: center;
         width: 10%;}
     </style>
