@@ -61,7 +61,12 @@
             <span class="text-danger">{{ $errors->first('image') }}</span>
         @endif
     </div>
-    
+    <div class="form-group mb-3">
+        <input type="text" placeholder="Favorities" id="favorities" class="form-control" name="favorities" value="{{ $user->favorities }}" required autofocus>
+        @if ($errors->has('favorities'))
+            <span class="text-danger">{{ $errors->first('favorities') }}</span>
+        @endif
+    </div>
     <div class="form-group mb-3">
         <button type="submit" class="btn btn-dark btn-block">Update</button>
     </div>

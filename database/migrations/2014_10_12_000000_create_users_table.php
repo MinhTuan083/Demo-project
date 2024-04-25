@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('mssv')->nullable();
             $table->string('image')->nullable(); 
+            $table->string('favorities');
             $table->rememberToken();
             $table->timestamps();
         });

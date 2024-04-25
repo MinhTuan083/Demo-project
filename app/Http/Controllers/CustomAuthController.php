@@ -48,7 +48,8 @@ class CustomAuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            
+            'favorities' => 'required|string|max:255',
+
         ]);
 
             $data = $request->all();
@@ -71,6 +72,7 @@ class CustomAuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'favorities' => $data['favorities'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'], // Lưu trữ số điện thoại
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
@@ -140,6 +142,7 @@ class CustomAuthController extends Controller
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
+            'favorities' => 'required|string|max:255',
         ]);
 
         // Tìm kiếm người dùng
@@ -149,6 +152,7 @@ class CustomAuthController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->mssv = $request->input('mssv');
+        $user->favorities = $request->input('favorities');
         $user->phone = $request->input('phone');
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
