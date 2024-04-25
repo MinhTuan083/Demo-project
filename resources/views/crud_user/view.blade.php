@@ -32,7 +32,10 @@
                                     <input disabled value="{{ $user->phone }}" type="phone" class="form-control" id="floatingInput">
                                     <label for="floatingInput">Phone</label>
                                 </div>
-        
+                                <div class="form-floating mb-3">
+                                    <input disabled value="{{ $user->sothich }}" type="phone" class="form-control" id="floatingInput">
+                                    <label for="floatingInput">Sở thích</label>
+                                </div>
                                 <button class="btn btn-primary" type="button"><a class="text-white text-decoration-none" href="{{ route('edit.user', ['id' => $user->id ]) }}">Cập Nhật</a> </button>
                             </div>
                         </div>

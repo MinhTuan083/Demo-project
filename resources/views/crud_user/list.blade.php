@@ -24,6 +24,7 @@
                         <td>Name</td>
                         <td>Email</td>
                         <td>Phone</td>
+                        <td>Favorites</td>
                         <td>Action</td>
                     </tr>
 
@@ -35,8 +36,9 @@
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
+                            <th>{!!$user->sothich !!}</th>
                             <th>
-                                <button type="button"> <a href="{{ route('view.user', ['id' => $user->id]) }}" class="text-decoration">View</a> </button>
+                                <button type="button"><a href="{{ route('view.user', ['id' => $user->id]) }}" class="text-decoration">View</a> </button>
                                 <button type="button"><a href="{{ route('edit.user', ['id' => $user->id]) }}">Edit</a> </button>
                                 <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" 
                                 onclick="return confirm('Bạn có muốn xóa người dùng {{$user -> name}} không?');"
