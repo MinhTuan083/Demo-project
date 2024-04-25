@@ -124,7 +124,7 @@ class CustomAuthController extends Controller
     public function listUser()
     {
        if (Auth::check()) {
-            $users = User::paginate(5);
+            $users = User::paginate(1);
             return view('crud_user.list', ['users' => $users]);
         }
 
