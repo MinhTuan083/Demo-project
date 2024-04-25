@@ -7,12 +7,13 @@
                         <h3 class="card-header text-center">Read User</h3>
                         <div class="card-body" >
                         <div class="row">
-                            <div class="col-4" > <img src=" /./storage/{{ $users->image }} " width="400" ></div>
+                            <div class="col-4" > <img src=" /./storage/{{ $users->image }} " width="300" ></div>
                             <div class="col-8" >
                                 <p>MSSV: {{$users->mssv}}</p>
                                 <p>Name: {{$users->name}}</p>
                                 <p>Email: {{$users->email}} </p>
                                 <p>Phone: {{$users->phone}}</p>
+                                <p>Favorities: {{$users->favoroties}}</p>
                             </div>
                         </div>
                        

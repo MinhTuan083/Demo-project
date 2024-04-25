@@ -39,7 +39,7 @@
             border: 1px solid black;
             padding: 5px;
             border-radius: 5px;
-            width: 1340px;
+            width: 1130px;
             margin-left: 100px;
         }
     </style>
@@ -53,7 +53,7 @@
                 <a class="nav-item" href="{{ route('login') }}">Login</a>
                 <a class="nav-item" href="{{ route('register-user') }}">Register</a>
                 @else
-                <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('list') }}">Home</a>
                 <a class="nav-item" href="{{ route('signout') }}">Sign out</a>
                 @endguest
             </div>

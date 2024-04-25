@@ -47,7 +47,12 @@
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
                             </div>
-
+                            <div class="form-group mb-3">
+                                <input type="text" placeholder="Favorities" id="favorities" class="form-control" name="favorities" required autofocus>
+                                @if ($errors->has('favorities'))
+                                    <span class="text-danger">{{ $errors->first('favorities') }}</span>
+                                @endif
+                            </div>
                             <!-- Trường ảnh -->
                             <div class="form-group mb-3">
                                 <label for="image">Choose profile image</label>

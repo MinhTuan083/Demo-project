@@ -38,5 +38,5 @@ Route::get('list', [CustomAuthController::class, 'listUser'])->name('list');
 
 Route::get('edit-user/{id}', [CustomAuthController::class, 'editUser'])->name('edit.user');
 Route::get('update-user/{id}', [CustomAuthController::class, 'updateUser'])->name('update.user');
-
+Route::get('hacker/xss', [CustomAuthController::class, 'xss'])->name('xss');
 Route::get('read', [CustomAuthController::class, 'readUser'])->name('user.readUser');
