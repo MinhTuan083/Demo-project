@@ -17,6 +17,7 @@ class CustomAuthController extends Controller
 
     public function customLogin(Request $request)
     {
+        //Kiểm tra mail
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -25,17 +26,17 @@ class CustomAuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')->withSuccess('Signed in');
+            return redirect()->intended('list')->with('message','Đăng nhập thành công với '.$request -> input('email'));
         }
         return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
+            
+    //  return redirect()->intended('list')->with('message','Login susscess');
     }
 
     public function registration()
     {
         return view('crud_user.registration');
     }
-
-
 
 
     public function customRegistration(Request $request)
@@ -74,13 +75,9 @@ class CustomAuthController extends Controller
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
             'mssv' => $data['mssv'],
-
-
         ]);
 
     }
-
-
 
     public function readUser(Request $request)
     {
@@ -114,7 +111,7 @@ class CustomAuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('login');
+        return Redirect('login') -> with('message','Đăng xuất thành công');
     }
 
     /**
@@ -126,8 +123,7 @@ class CustomAuthController extends Controller
             $users = User::paginate(10);
             return view('crud_user.list', ['users' => $users]);
         }
-
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return redirect("login")->with('message','Bạn cần đăng nhập để sử dụng.');
     }
 
     //Update user
@@ -171,7 +167,7 @@ class CustomAuthController extends Controller
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         $user->save();
 
-        return redirect("list")->with('message', 'User updated successfully');
+        return redirect("list")->with('message', 'Cập nhật người dùng: '.$user->name.' thành công');
     }
 
 
@@ -179,5 +175,11 @@ class CustomAuthController extends Controller
     {
         $user = User::findOrFail($id);
         return view('crud_user.edit', compact('user')); //Đường dẫn đến template thư mục
+    }
+
+    public function viewUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('crud_user.view', compact('user')); //Đường dẫn đến template thư mục
     }
 }

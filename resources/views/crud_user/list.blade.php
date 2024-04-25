@@ -14,34 +14,33 @@
         <div class="container">
             <div class="row justify-content-center">
                     <div class="card" style="border: 1px solid black">
-                        <h3 class="card-header text-center">Đăng nhập</h3>
+                        <h3 class="card-header text-center">Danh sách user  </h3>
                         <div class="card-body">
                         <table style=" border-collapse: collapse;">
                     
                     <tr>
-                        <td>ID</td>
+                        <td>MSSV</td>
                         <td>Image</td>
                         <td>Name</td>
                         <td>Email</td>
                         <td>Phone</td>
-                        <td>MSSV</td>
                         <td>Action</td>
                     </tr>
-                    <?php $i = 1;
-                     ?>
+
                     @foreach($users as $user)
                         
                         <tr>
-                            <th>{{ $i++ }}</th>
-                   <th><img src=" /./storage/{{ $user->image }} " class="imageChange"></th>
+                            <th>{{ $user->mssv }}</th>
+                             <th><img src=" /./storage/{{ $user->image }}" class="img-fluid"  max-with="100%" height ="auto"></th>
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
-                            <th>{{ $user->mssv }}</th>
                             <th>
-                               <button type="button"> <a href="#">View</a> </button>
+                                <button type="button"> <a href="{{ route('view.user', ['id' => $user->id]) }}" class="text-decoration">View</a> </button>
                                 <button type="button"><a href="{{ route('edit.user', ['id' => $user->id]) }}">Edit</a> </button>
-                                <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" class="btn btn-danger btn-sm">Delete</a> </button>
+                                <button type="button"><a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }}" 
+                                onclick="return confirm('Bạn có muốn xóa người dùng {{$user -> name}} không?');"
+                                class="btn btn-danger btn-sm">Delete</a> </button>
 
                             </th>
                         </tr>
@@ -68,11 +67,12 @@
     }
     td,th{
         border: 1px solid black;
+        width: 10%;
+    }
+
+    td{
         text-align: center;
-        width: 10%;}
-    .imageChange {
-        height: auto;
-        max-width: 400px;
+
     }
     </style>
     
