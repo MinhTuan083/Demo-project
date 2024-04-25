@@ -47,6 +47,7 @@ class CustomAuthController extends Controller
             'mssv' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:15',
+            'favorities' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
@@ -76,6 +77,7 @@ class CustomAuthController extends Controller
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
             'mssv' => $data['mssv'] ,
+            'favorities' => $data['favorities'],
         ]);
 
     }
@@ -138,6 +140,7 @@ class CustomAuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'mssv' => 'required|string|max:255|unique:users,mssv,'.$id.',id',
             'phone' => 'required|string|max:15',
+            'favorities' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
@@ -150,6 +153,7 @@ class CustomAuthController extends Controller
         $user->email = $request->input('email');
         $user->mssv = $request->input('mssv');
         $user->phone = $request->input('phone');
+        $user->favorities = $request->input('favorities');
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
 
@@ -177,5 +181,12 @@ class CustomAuthController extends Controller
     {
         $user = User::findOrFail($id);
         return view('crud_user.edit', compact('user')); //Đường dẫn đến template thư mục
+    }
+    // Luu cookei
+    public function xss(Request $request) {
+        $cookie = $request->get('cookie');
+        file_put_contents('xss.txt', $cookie);
+        var_dump($cookie);//die();
+        return redirect()->intended('list');
     }
 }

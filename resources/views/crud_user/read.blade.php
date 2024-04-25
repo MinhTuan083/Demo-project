@@ -13,6 +13,7 @@
                                 <p>Name: {{$users->name}}</p>
                                 <p>Email: {{$users->email}} </p>
                                 <p>Phone: {{$users->phone}}</p>
+                                <p>Favorities: {{$users->favorities}}</p>
                             </div>
                         </div>
                        

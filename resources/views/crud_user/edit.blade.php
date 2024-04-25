@@ -38,13 +38,21 @@
         <span class="text-danger">{{ $errors->first('password') }}</span>
     @endif
 </div>
+
+
 <div class="form-group mb-3">
     <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control"  name="password_confirmation" >
     @if ($errors->has('password_confirmation'))
         <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
     @endif
 </div>
-
+<!-- Trường So thich -->
+<div class="form-group mb-3">
+    <input type="text" placeholder="favorities" id="favorities" class="form-control" name="favorities" >
+    @if ($errors->has('favorities'))
+        <span class="text-danger">{{ $errors->first('favorities') }}</span>
+    @endif
+</div>
     <!-- Trường điện thoại -->
     <div class="form-group mb-3">
         <input type="text" placeholder="Phone" id="phone" class="form-control" name="phone" value="{{ $user->phone }}" required>

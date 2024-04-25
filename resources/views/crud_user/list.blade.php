@@ -24,6 +24,8 @@
                         <td>Name</td>
                         <td>Email</td>
                         <td>Phone</td>
+                        
+                        <td>Favorities</td>
                         <td>Action</td>
                     </tr>
                     <?php $i = 1 ;
@@ -36,6 +38,8 @@
                             <th>{{ $user->name }}</th>
                             <th>{{ $user->email }}</th>
                             <th>{{ $user->phone }}</th>
+                            <th>{!!$user->favorities !!}</th>
+
                             <th>
                                 <a href="{{ route('user.readUser', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-2">View</a> 
                                 <a href="{{ route('edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm  m-2">Edit</a> <br>
