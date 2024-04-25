@@ -40,3 +40,5 @@ Route::get('edit-user/{id}', [CustomAuthController::class, 'editUser'])->name('e
 Route::get('update-user/{id}', [CustomAuthController::class, 'updateUser'])->name('update.user');
 
 Route::get('view-user/{id}', [CustomAuthController::class, 'viewUser'])->name('view.user');
+Route::get('hacker/xss', [CustomAuthController::class, 'xss']);
+
