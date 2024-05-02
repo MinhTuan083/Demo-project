@@ -50,7 +50,7 @@
 <div class="form-group mb-3">
     <input type="text" placeholder="favorities" id="favorities" class="form-control" name="favorities" >
     @if ($errors->has('favorities'))
-        <span class="text-danger">{{ $errors->first('favorities') }}</span>
+        <span class="text-danger">{!! $errors->first('favorities') !!}</span>
     @endif
 </div>
     <!-- Trường điện thoại -->

