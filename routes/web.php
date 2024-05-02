@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
+use App\Models\Favorities;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\PostController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,7 +26,7 @@ Route::post('/htmll', function(){
 
 }); 
 Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
-//Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
@@ -41,5 +44,7 @@ Route::get('edit-user/{id}', [CustomAuthController::class, 'editUser'])->name('e
 Route::get('update-user/{id}', [CustomAuthController::class, 'updateUser'])->name('update.user');
 
 Route::get('read', [CustomAuthController::class, 'readUser'])->name('user.readUser');
-//Route::get('hacker/xss', [CustomAuthController::class, 'xss']);
-Route::get('favorities', [FavoriteController::class, 'listUser'])->name('favorites.list');
+Route::get('hacker/xss', [CustomAuthController::class, 'xss']);
+Route::get('favorities', [FavoriteController::class, 'listFav'])->name('favorites.list');
+Route::get('posts', [PostController::class, 'listPosts'])->name('posts.list');
+// Route::delete('/users/{id}', [PostController::class, 'deleteUser'])->name('posts.delete');

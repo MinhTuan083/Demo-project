@@ -6,6 +6,9 @@ use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Posts;
+use App\Models\User_favorite;
+use App\Models\Favorities;
 
 //Unknow
 class CustomAuthController extends Controller
@@ -95,10 +98,14 @@ class CustomAuthController extends Controller
 
     public function deleteUser(Request $request)
     {
-        $user_id = $request->get('id');
+        $user_id =$request->get('id');
+        $user_Favorite = User_favorite::find($user_id);
+        $user_Post = Posts::find($user_id);
+        if ($user_Favorite != null || $user_Post != null) {
+            return redirect("list")->withErrors('Không thể xóa vì user có bài viết hoặc sở thích');
+        }
         $user = User::destroy($user_id);
-
-        return redirect("list")->withSuccess('You have signed-in');
+        return redirect("list")->withSuccess('You have Signed-in');
     }
 
 
