@@ -67,6 +67,7 @@
                                 @endif
                             </div>
 
+                            
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-dark btn-block">Sign up</button>
                         </form>
