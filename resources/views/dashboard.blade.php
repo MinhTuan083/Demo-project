@@ -39,7 +39,7 @@
             border: 1px solid black;
             padding: 5px;
             border-radius: 5px;
-            width: 1340px;
+            width: 1130px;
             margin-left: 100px;
         }
     </style>
