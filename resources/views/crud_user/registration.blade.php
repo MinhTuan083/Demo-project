@@ -1,3 +1,11 @@
+@if (session('message'))
+    <script>
+    window.onload = function() {
+        alert('{{ Session::get('message') }}');
+    }
+    </script>
+@endif
+
 @extends('dashboard')
 
 @section('content')
@@ -51,6 +59,14 @@
                                 @endif
                             </div>
                             
+                            <!--Trường mssv-->
+                            <div class="form-group mb-3">
+                                <input type="text" placeholder="MSSV" id="mssv" class="form-control" name="mssv" required>
+                                @if ($errors->has('mssv'))
+                                    <span class="text-danger">{{ $errors->first('mssv') }}</span>
+                                @endif
+                            </div>
+
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-dark btn-block">Sign up</button>
                         </form>

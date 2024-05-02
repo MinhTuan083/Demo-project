@@ -1,3 +1,11 @@
+
+@if (session('message'))
+    <script>
+    window.onload = function() {
+        alert('{{ Session::get('message') }}');
+    }
+    </script>
+@endif
 @extends('dashboard')
 @section('content')
 

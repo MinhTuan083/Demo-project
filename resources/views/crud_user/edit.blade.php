@@ -55,6 +55,14 @@
             <span class="text-danger">{{ $errors->first('image') }}</span>
         @endif
     </div>
+
+     <!--Trường mssv-->
+     <div class="form-group mb-3">
+                                <input type="text" placeholder="MSSV" id="mssv" class="form-control" name="mssv" value="{{ $user->mssv }}" required>
+                                @if ($errors->has('mssv'))
+                                    <span class="text-danger">{{ $errors->first('mssv') }}</span>
+                                @endif
+                            </div>
     
     <div class="form-group mb-3">
         <button type="submit" class="btn btn-dark btn-block">Update</button>

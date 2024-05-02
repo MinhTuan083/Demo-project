@@ -17,6 +17,7 @@ class CustomAuthController extends Controller
 
     public function customLogin(Request $request)
     {
+        //Kiểm tra mail
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -25,17 +26,17 @@ class CustomAuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')->withSuccess('Signed in');
+            return redirect()->intended('list')->with('message','Đăng nhập thành công với '.$request -> input('email'));
         }
         return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
+            
+    //  return redirect()->intended('list')->with('message','Login susscess');
     }
 
     public function registration()
     {
         return view('crud_user.registration');
     }
-
-
 
 
     public function customRegistration(Request $request)
@@ -46,6 +47,7 @@ class CustomAuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'mssv' => 'required|string|max:255|unique:users',
         ]);
 
         $data = $request->all();
@@ -72,12 +74,10 @@ class CustomAuthController extends Controller
             'phone' => $data['phone'], // Lưu trữ số điện thoại
             // Lưu trữ đường dẫn ảnh với 'image_path' là tên cột trong database
             'image' => $data['image'] ?? null,
-
+            'mssv' => $data['mssv'],
         ]);
 
     }
-
-
 
     public function readUser(Request $request)
     {
@@ -111,7 +111,7 @@ class CustomAuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('login');
+        return Redirect('login') -> with('message','Đăng xuất thành công');
     }
 
     /**
@@ -123,8 +123,7 @@ class CustomAuthController extends Controller
             $users = User::paginate(10);
             return view('crud_user.list', ['users' => $users]);
         }
-
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return redirect("login")->with('message','Bạn cần đăng nhập để sử dụng.');
     }
 
     //Update user
@@ -136,7 +135,9 @@ class CustomAuthController extends Controller
             'phone' => 'required|string|max:15',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => 'nullable|string|min:6|confirmed',
+            'mssv' => 'required|string|max:255|unique:users,mssv,' . $id . ',id',
         ]);
+
 
         // Tìm kiếm người dùng
         $user = User::findOrFail($id);
@@ -145,6 +146,8 @@ class CustomAuthController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
+        $user->mssv = $request->input('mssv');
+
 
         // Lấy mật khẩu mới từ request
         $newPassword = $request->input('password');
@@ -157,13 +160,14 @@ class CustomAuthController extends Controller
 
         // Kiểm tra và cập nhật ảnh đại diện nếu có
         if ($request->hasFile('image')) {
-            $user->image = $request->file('image')->store('profile_images');
-        }
+            $user->image = $request->input('image', $request->file('image')->store(''));
 
+            $request->file('image')->store('public');
+        }
         // Lưu thông tin người dùng vào cơ sở dữ liệu
         $user->save();
 
-        return redirect("list")->with('message','User updated successfully');
+        return redirect("list")->with('message', 'Cập nhật người dùng: '.$user->name.' thành công');
     }
 
 
@@ -171,5 +175,11 @@ class CustomAuthController extends Controller
     {
         $user = User::findOrFail($id);
         return view('crud_user.edit', compact('user')); //Đường dẫn đến template thư mục
+    }
+
+    public function viewUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('crud_user.view', compact('user')); //Đường dẫn đến template thư mục
     }
 }
