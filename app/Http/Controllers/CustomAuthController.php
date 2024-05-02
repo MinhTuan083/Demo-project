@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Auth;
 //Unknow
 class CustomAuthController extends Controller
 {
-    public function index()
-    {
-        return view('crud_user.login');
-    }
-
+    
+        public function index()
+        {
+            $favorites = Favorities::all(); // Lấy danh sách các sở thích từ database
+            return view('favorites.index', compact('favorites')); // Trả về view và truyền danh sách sở thích
+        }
+    
     public function customLogin(Request $request)
     {
         $request->validate([

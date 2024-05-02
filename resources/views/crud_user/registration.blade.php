@@ -4,61 +4,30 @@
 <main class="signup-form">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="card">
-                    <h3 class="card-header text-center">Register User</h3>
+                    <h3 class="card-header text-center">Create Favorite</h3>
                     <div class="card-body">
-                    <form method="POST" action="{{ route('register.custom') }}" enctype="multipart/form-data"> <!-- thêm thuộc tính enctype để xử lý tệp -->
+                        <form method="POST" action="{{ route('favorites.store') }}">
                             @csrf
+
                             <div class="form-group mb-3">
-                                <input type="text" placeholder="Name" id="name" class="form-control" name="name" required autofocus>
-                                @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="Email" id="email_address" class="form-control" name="email" required>
-                                @if ($errors->has('email'))
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="mssv" id="mssv" class="form-control" name="mssv" required >
-                                @if ($errors->has('mssv'))
-                                    <span class="text-danger">{{ $errors->first('mssv') }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="password" placeholder="Password" id="password" class="form-control" name="password" required>
-                                @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="password" placeholder="Confirm Password" id="password-confirm" class="form-control" name="password_confirmation" required>
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-                                @endif
-                            </div>
-                            <!-- Trường điện thoại -->
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="Phone" id="phone" class="form-control" name="phone" required>
-                                @if ($errors->has('phone'))
-                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
-                                @endif
+                                <input type="text" placeholder="Favorite Name" id="favorite_name" class="form-control" name="favorite_name" required autofocus>
+                                @error('favorite_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
-                            <!-- Trường ảnh -->
                             <div class="form-group mb-3">
-                                <label for="image">Choose profile image</label>
-                                <input type="file" id="image" class="form-control" name="image" accept="image/*">
-                                @if ($errors->has('image'))
-                                    <span class="text-danger">{{ $errors->first('image') }}</span>
-                                @endif
+                                <textarea placeholder="Favorite Description" id="favorite_description" class="form-control" name="favorite_description" required></textarea>
+                                @error('favorite_description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            
+
                             <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-dark btn-block">Sign up</button>
+                                <button type="submit" class="btn btn-dark btn-block">Create Favorite</button>
+                            </div>
                         </form>
                     </div>
                 </div>

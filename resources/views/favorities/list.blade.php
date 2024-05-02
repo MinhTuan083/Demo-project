@@ -19,20 +19,27 @@
                         <table style=" border-collapse: collapse;">
                     
                     <tr>
-                        <td>Favorite ID</td>
-                        <td>Favorite Name</td>
-                        <td>Favorite Description</td>
-
+                        <td>MSSV</td>
+                        <td>Image</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Phone</td>
+                        <td>Action</td>
                     </tr>
                     <?php $i = 1 ;
                      ?>
-                    @foreach($item as $item)
+                    @foreach($users as $user)
                         
                         <tr>
-                            <th>{{ $item->favorite_id }}</th>
-                            <th>{{ $item->favorite_name }}</th>
-                            <th>{{ $item->favorite_description	 }}</th>
+                            <th>{{ $user->mssv }}</th>
+                            <th><img src=" /./storage/{{ $user->image }} " width="100" ></th>
+                            <th>{{ $user->name }}</th>
+                            <th>{{ $user->email }}</th>
+                            <th>{{ $user->phone }}</th>
                             <th>
+                                <a href="{{ route('user.readUser', ['id' => $user->id]) }}" class="btn btn-primary btn-sm m-2">View</a> 
+                                <a href="{{ route('edit.user', ['id' => $user->id]) }}" class="btn btn-primary btn-sm  m-2">Edit</a> <br>
+                                <a href="{{ route('crud_user.deleteUser', ['id' => $user->id]) }} " onclick="return confirm('Are you sure you want to delete this usere?');" class="btn btn-danger btn-sm mb-2">Delete</a> 
 
                             </th>
                         </tr>
@@ -40,7 +47,7 @@
                 
                         </table>
                        <div > 
-                       {{ $item->render('vendor.pagination.custom') }}</div>
+                       {{ $users->render('vendor.pagination.custom') }}</div>
                         </div>
                     </div>
             <!-- Phan trang -->
