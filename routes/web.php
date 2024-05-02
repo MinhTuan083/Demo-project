@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\AuthFavoriteController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,9 +29,11 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
-Route::post('registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
+Route::post('registration', [CustomAuthController::class, 'customRegistration'])->name('register.customs');
 
 Route::get('list', [CustomAuthController::class, 'listUser'])->name('user.list');
+Route::get('list_favorities', [AuthFavoriteController::class, 'listFavorities'])->name('user.list_favorities');
+Route::get('list_posts', [AuthFavoriteController::class, 'listPosts'])->name('list_post');
 
 Route::get('create', [CustomAuthController::class, 'createUser'])->name('createUser');
 Route::post('create', [CustomAuthController::class, 'postUser'])->name('crud_user.postUser');

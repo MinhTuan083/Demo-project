@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Hash;
 use Session;
 use App\Models\User;
+use App\Models\Posts;
+
 use Illuminate\Support\Facades\Auth;
 
 //Unknow
@@ -90,9 +92,15 @@ public function create(array $data)
     public function deleteUser(Request $request)
     {
         $user_id = $request->get('id');
+        $user = User::find($user_id);
+        if($user->hasPosts->count() > 0){
+            return redirect()->back()->with('error', 'Không thể xóa user có bài viết.');
+        }
+        if($user->favorities()->count() > 0){
+            return redirect()->back()->with('error', 'Không thể xóa user có bài viết.');}
         $user = User::destroy($user_id);
 
-        return redirect("list")->withSuccess('You have signed-in');
+        return redirect("list")->withSuccess("Dang co post");
     }
 
 
