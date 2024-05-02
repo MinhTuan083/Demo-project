@@ -11,17 +11,21 @@ class Favorities extends Model
 {
     use HasFactory;
 
-    protected $table = 'favorities';
+    protected $table = 'favorites';
 
     protected $primaryKey = 'favorite_id';
 
     public $incrementing = true;
 
+    public static function paginate(int $int)
+    {
+    }
+
     /**
      * Relationship many to many
      * @return HasMany
      */
-    public function favorities(): BelongsToMany
+    public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }

