@@ -54,6 +54,9 @@
                 <a class="nav-item" href="{{ route('register-user') }}">Register</a>
                 @else
                 <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('user.list_favorities') }}">Favorities</a>
+                
+                <a class="nav-item" href="{{ route('list_post') }}">Posts</a>
                 <a class="nav-item" href="{{ route('signout') }}">Sign out</a>
                 @endguest
             </div>
