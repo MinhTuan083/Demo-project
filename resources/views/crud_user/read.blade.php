@@ -7,12 +7,32 @@
                         <h3 class="card-header text-center">Read User</h3>
                         <div class="card-body" >
                         <div class="row">
-                            <div class="col-4" > <img src=" /./storage/{{ $users->image }} " width="400" ></div>
+                            <div class="col-4" > <img src=" /./storage/{{ $users->image }} " width="300px" ></div>
                             <div class="col-8" >
                                 <p>MSSV: {{$users->mssv}}</p>
                                 <p>Name: {{$users->name}}</p>
                                 <p>Email: {{$users->email}} </p>
                                 <p>Phone: {{$users->phone}}</p>
+                                <H3>Profile:</H3>
+                                @if ($users->profile === null) 
+                                @else{
+                                    <p>First name:$users->profile->first_name</p>
+                                    <p>Last name: {{$users->profile->last_name}}</p>
+                                }
+                                    @endif 
+
+                                    
+                              
+                                <H3>Profile:</H3>
+                                @foreach($users->posts as $post)
+                            <th>{{ $post->post_name }}</th>
+                            <th>{{ $post->post_description }}</th>
+                                @endforeach
+                                <H3>Sở thích:</H3>
+                                @foreach($users->favorities as $favorite)
+                            <th>{{ $favorite->favorite_name }}</th>
+                            <th>{{ $favorite->favorite_description }}</th>
+                                @endforeach
                             </div>
                         </div>
                        
