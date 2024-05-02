@@ -21,7 +21,7 @@
                     </div>
                
             </div>
-        </div>
+    
     </main>
     <style>
         button{

@@ -53,7 +53,7 @@
                 <a class="nav-item" href="{{ route('login') }}">Login</a>
                 <a class="nav-item" href="{{ route('register-user') }}">Register</a>
                 @else
-                <a class="nav-item" href="{{ route('login') }}">Home</a>
+                <a class="nav-item" href="{{ route('list') }}">Home</a>
                 <a class="nav-item" href="{{ route('signout') }}">Sign out</a>
                 @endguest
             </div>
