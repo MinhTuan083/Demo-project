@@ -59,23 +59,6 @@
                                 @endif
                             </div>
                             
-                            <!--Trường mssv-->
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="MSSV" id="mssv" class="form-control" name="mssv" required>
-                                @if ($errors->has('mssv'))
-                                    <span class="text-danger">{{ $errors->first('mssv') }}</span>
-                                @endif
-                            </div>
-
-
-                            <!--Trường sở thích-->
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="Sở thích" id="sothich" class="form-control" name="sothich">
-                                @if ($errors->has('sothich'))
-                                    <span class="text-danger">{{ $errors->first('sothich') }}</span>
-                                @endif
-                            </div>
-
                             <div class="form-group mb-3">
                                 <button type="submit" class="btn btn-dark btn-block">Sign up</button>
                         </form>
