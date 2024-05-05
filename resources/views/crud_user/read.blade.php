@@ -20,7 +20,7 @@
                         <button type="button"><a href="{{ route('edit.user', ['id' => $users->id]) }}">Edit</a> </button>
                         </div>
                     </div>
-         
+
             </div>
         </div>
     </main>
